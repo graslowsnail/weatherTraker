@@ -1,7 +1,4 @@
 
-
-
-
 //gets weather for city
 var getWeather = function (cityName) {
     //format the api url
@@ -14,7 +11,10 @@ var getWeather = function (cityName) {
                     console.log(data);
                     console.log(data.city.name);
                     console.log(data.list[0].main.temp + "°F");
+                    var currentWeather = data.list[0].main.temp + "°F";
 
+
+                    displayWeather(currentWeather, cityName);
                 });
             } else {
                 alert("error: bad request");
@@ -23,14 +23,39 @@ var getWeather = function (cityName) {
 
 };
 
+var displayWeather = function (cityInfo, searchTerm) {
+    var weatherLi = $("<li>")
+        .addClass("");
+    var cityName = $("h2")
+        .addClass("text-uppercase text-center")
+        .text(searchTerm);
+    var weatherP = $("<p>")
+        .addClass("m-1")
+        .text(cityInfo);
+    weatherLi.append(cityName, weatherP);
+
+    $("#cityInformation").append(weatherLi);
+
+};
+
+
+// Get value on button click and show alert
+$("#search").click(function () {
+    var str = $("#cityName").val();
+
+    getWeather(str);
+});
+
+
+
+
 
 //event listener for when search button is clicked
 //prints and apends element to body
-$("button").on("click", function () {
-    $("<div>This is a click Event</div>").appendTo("body");
-    console.log("when i click the button");
-    // getWeather();
+// $("button").on("click", function () {
+//     $("<div>This is a click Event</div>").appendTo("body");
+//     console.log("when i click the button");
+//     // getWeather();
 
-    getWeather("houston");
-});
-
+//     getWeather("houston");
+// });
